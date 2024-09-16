@@ -53,6 +53,7 @@ export default class DiagramPlugin extends Plugin {
     const items = menu.items;
     const fromIndex = items.findIndex((x) => itemAny === x);
     const menuDom = menu.dom;
+    // console.log("menuDom: ", menuDom);
 
     items.splice(fromIndex, 1);
     items.splice(toIndex, 0, item);
@@ -195,6 +196,7 @@ export default class DiagramPlugin extends Plugin {
     source: string
   ) {
     if (abstractFile instanceof TFile) {
+      // Right-click menu on a file & Click the `more-options` button on the upper right corner menu
       if (this.isDiagramFileExtension(abstractFile)) {
         // User clicked on an a diagram
         menu.addItem((item: MenuItem) => {

@@ -148,8 +148,7 @@ export default class DrawioClient implements EventTarget {
     // the first script to inject into the iframe
     const frameSrc =
       "data:text/html," +
-      encodeURIComponent(`
-<script>
+      encodeURIComponent(`<script>
 const onWindowMessage = (messageEvent) => {
   const message = JSON.parse(messageEvent.data);
   if(message.action==="script"){
@@ -211,6 +210,7 @@ window.parent.postMessage("{\\"event\\":\\"iframe\\"}",'*');
   }
 
   protected handleMessage(message: EventMessage) {
+    // console.log("drawio-client message: ", message);
     switch (message.event) {
       case EventMessageEvents.Iframe:
         // This is the bootstrap message that comes from
