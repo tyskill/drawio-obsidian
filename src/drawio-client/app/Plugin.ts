@@ -125,7 +125,8 @@ export default class Plugin {
 
     // Remove the status elements because this plugin manages saving the diagram
     app.statusContainer.remove();
-    app.statusContainer = null;
+    // `null` will cause NPE
+    // app.statusContainer = null;
     if (
       app.menubarContainer.parentElement.firstChild === app.menubarContainer &&
       app.menubarContainer.parentElement.childElementCount === 1
