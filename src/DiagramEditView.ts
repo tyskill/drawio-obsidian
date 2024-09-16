@@ -1,8 +1,8 @@
-import { LoadProgress, TFile, ViewState, WorkspaceLeaf } from "obsidian";
+import { LoadProgress, Notice, TFile, ViewState, WorkspaceLeaf } from "obsidian";
 import DiagramPlugin from "./DiagramPlugin";
 import DiagramViewBase from "./DiagramViewBase";
 import { DIAGRAM_EDIT_VIEW_TYPE, DIAGRAM_VIEW_TYPE } from "./constants";
-import { createLoadProgress } from "./LoadProgress";
+// import { createLoadProgress } from "./LoadProgress";
 import DrawioClient, {
   FileChangeEvent,
   StateChangeEvent,
@@ -12,13 +12,15 @@ import DiagramView from "./DiagramView";
 const FILE_EXTENSIONS = ["svg"];
 
 export class DiagramEditView extends DiagramViewBase {
-  protected loadProgress: LoadProgress;
+  // protected loadProgress: LoadProgress;
   protected drawioClient: DrawioClient;
 
   constructor(leaf: WorkspaceLeaf, plugin: DiagramPlugin) {
     super(leaf, plugin);
     this.app;
-    this.loadProgress = createLoadProgress(this.app, this.contentEl);
+    // console.log("subclass", this.app);
+    // console.log("content", this.contentEl);
+    // this.loadProgress = createLoadProgress(this.app, this.contentEl);
   }
 
   private async handleFileChange(event: FileChangeEvent) {
@@ -44,9 +46,9 @@ export class DiagramEditView extends DiagramViewBase {
         true
       );
       this.drawioClient.addCssToFrame(this.fontCss());
-      this.loadProgress.hide();
+      // this.loadProgress.hide();
     } else {
-      this.loadProgress.show();
+      // this.loadProgress.show();
     }
   }
 
@@ -106,7 +108,8 @@ export class DiagramEditView extends DiagramViewBase {
   }
 
   async onOpen() {
-    this.loadProgress.setMessage(`Loading diagram editor`);
+    // this.loadProgress.setMessage();
+    new Notice(``).setMessage(`Loading diagram editor`);
 
     const configuration = this.plugin.getDrawioConfiguration();
     // NOTE: Can't await the DrawioClient frame setup because the the application would
