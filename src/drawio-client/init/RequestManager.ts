@@ -49,6 +49,8 @@ export class RequestManager {
       return this.blobCache.get(url);
     }
 
+    // console.log("url: ", url);
+    // console.log("responses: ", this.responses);
     const file = this.responses.find((file) => file.href === url);
     if (typeof file === "undefined") {
       console.warn("Missing local resource", "https://app.diagrams.net/" + url);
@@ -64,6 +66,12 @@ export class RequestManager {
     const isBase64 = mediaType.endsWith(";base64");
 
     let blobUrl;
+
+    if (source.length === 0) {
+      // `mxgraph/css/common.css` source is empty string
+      this.blobCache.set(url, null);
+      return null;
+    }
 
     if (isBase64 && source.length < 1024) {
       blobUrl = "data:" + mediaType + "," + source;
@@ -176,6 +184,9 @@ export class RequestManager {
       (fn) =>
         function (_method: string, url: string, ...args: any[]) {
           url = resolveResourceUrl(url);
+          if (url === null) {
+            return null;
+          }
           console.warn("XHR", _method, url);
           return fn.call(this, _method, url, ...args);
         }
