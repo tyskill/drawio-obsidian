@@ -12,3 +12,26 @@ This plugin introduces diagrams to Obsidian that can be included within notes or
 ### Edit an Existing Diagram
 
 ![Edit existing diagram](/docs/image/screenshot3.png)
+
+## Dev
+
+### Compile
+
+```bash
+rollup --config rollup.config.js --bundleConfigAsCjs
+```
+
+### Upgrade Drawio
+
+```bash
+cd ./drawio
+# pull remote tag
+git fetch origin tag <tag_name>
+# checkout tag
+git checkout <tag_name>
+
+# commit `upgrade` record
+cd ../
+git add drawio
+git commit -m "Update drawio to tag vx.x.x"
+```
