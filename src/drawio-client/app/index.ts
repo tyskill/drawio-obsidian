@@ -8,6 +8,9 @@ import Plugin from "./Plugin";
  * the obsidian plugin code as a string so it can be injected into the iframe.
  **/
 function app() {
+  // add a global variable to indicate that we are running in electron
+  Object.defineProperty(window, "mxIsElectron", { value: false });
+
   Menus.prototype.defaultMenuItems = Menus.prototype.defaultMenuItems.filter(
     (menuItem: string) => menuItem !== "help"
   );
